@@ -11,6 +11,10 @@
           id="projectName"
           formControlName="projectname"
         />
+        <span *ngIf="!projectForm.get('projectname').valid && projectForm.get('projectname').touched">
+          <span *ngIf="projectForm.get('projectname').errors['required']">Project name required!</span>
+           <span *ngIf="projectForm.get('projectname').errors['nameIsForbidden']">Name '{{projectForm.get('projectname').value}}' is forbidden!</span>
+        </span>
       </div>
       <div class="form-group">
         <label for="email">Email</label>
@@ -21,6 +25,12 @@
           id="email"
           formControlName="email"
         />
+        <span *ngIf="!projectForm.get('email').valid && projectForm.get('email').touched">
+             <span *ngIf="projectForm.get('email').errors['required']">Please enter email!</span>
+           <span *ngIf="projectForm.get('email').errors['emailIsForbidden']">
+             Email '{{projectForm.get('email').value}}' is forbidden!!
+           </span>
+        </span>
       </div>
       <div class="form-group">
         <label>Status</label>
@@ -35,7 +45,7 @@
         </div>
       </div>
 
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-primary" [disabled]="!projectForm.valid">Submit</button>
       <!--
           Create a Form with the following Controls and Validators
           1) Project Name (should not be empty)
